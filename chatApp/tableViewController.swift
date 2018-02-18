@@ -8,20 +8,21 @@
 
 import UIKit
 
-class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate {
     
 
     @IBOutlet weak var testLable: UILabel!
-    
     @IBOutlet weak var chatTable: UITableView!
     @IBOutlet weak var messageField: UITextField!
     var username: String!
     var chatMessages = [[String : AnyObject]]()
+    let imagePicker = UIImagePickerController()
+    var imageView: UIImage = #imageLiteral(resourceName: "imageAshish")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
         if let nameToDisplay = username {
             testLable.text = nameToDisplay
         }
@@ -96,10 +97,13 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         if senderNickname == username {
             cell.messageTextCell.textAlignment = NSTextAlignment.right
             cell.userDataCell.textAlignment = NSTextAlignment.right
+        
             
         }
         
-        
+        if(imageView != #imageLiteral(resourceName: "imageAshish")){
+            cell.sendImage.image = imageView
+        }
         cell.messageTextCell.text = message
         cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         return cell
@@ -115,6 +119,26 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
             messageField.resignFirstResponder()
         }
     }
+    
+    
+    @IBAction func sendImageAction(_ sender: Any) {
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView = pickedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     
 }
