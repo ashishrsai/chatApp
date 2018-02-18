@@ -15,12 +15,18 @@ class imageViewController: UIViewController {
     @IBOutlet weak var imageDetails: UILabel!
     
     var detailOfImage = String()
-    var imageForSelectedImage = UIImage()
+    //var imageForSelectedImage = UIImage()
+    var byteToImageValue = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        selectedImage.image = imageForSelectedImage
+ 
         imageDetails.text = detailOfImage
+        
+        let data = Data(base64Encoded: byteToImageValue)
+        selectedImage.image = UIImage(data: data! )
+
         // Do any additional setup after loading the view.
     }
 

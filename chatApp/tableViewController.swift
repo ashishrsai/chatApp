@@ -18,8 +18,9 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     var chatMessages = [[String : AnyObject]]()
     let imagePicker = UIImagePickerController()
     var imageView: UIImage = #imageLiteral(resourceName: "imageAshish")
-    var didSendAnImage = 0
-    
+    var didSendAnImage = ""
+    var didSelectANewImage = 0
+    var dataForImage = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +97,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         let currentChatMessage = chatMessages[indexPath.row]
         let senderNickname = currentChatMessage["nickname"] as! String
         let message = currentChatMessage["message"] as! String
+        let imageData = currentChatMessage["imageData"] as! String
         let messageDate = currentChatMessage["date"] as! String
         
         if senderNickname == username {
@@ -121,7 +123,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
          */
         
         
-        
+        print(imageData)
         cell.messageTextCell.text = message
         cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         return cell
@@ -132,7 +134,14 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         if (messageField.text?.isEmpty)!{
             print("No text to send")
         }else{
-            socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username)
+            
+            if(didSelectANewImage == 1){
+                dataForImage = didSendAnImage
+                didSelectANewImage = 0
+            }else{
+                dataForImage = " "
+            }
+            socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage)
             messageField.text = ""
             
             messageField.resignFirstResponder()
@@ -148,7 +157,10 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imageView = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
+        let image = UIImagePNGRepresentation(imageView) as NSData?
+        didSendAnImage = image!.base64EncodedString()
         messageField.text = "Image File Attached"
+        didSelectANewImage = 1
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -159,12 +171,15 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         let currentChatMessage = chatMessages[indexPath.row]
         let senderNickname = currentChatMessage["nickname"] as! String
         let message = currentChatMessage["message"] as! String
+        let imageData = currentChatMessage["imageData"] as! String
         let messageDate = currentChatMessage["date"] as! String
         print("READ THIS",senderNickname,message,messageDate)
         imageVC.detailOfImage = "by \(senderNickname.uppercased()) @ \(messageDate)"
-        imageVC.imageForSelectedImage = imageView
+        //imageVC.imageForSelectedImage = imageView
+        imageVC.byteToImageValue = imageData
         self.navigationController?.pushViewController(imageVC, animated: true)
     }
+    
     
     
     
