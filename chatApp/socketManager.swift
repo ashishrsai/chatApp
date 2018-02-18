@@ -36,7 +36,7 @@ class socketManager: NSObject {
         
     }
     
-    //Used to send messages to the server
+    //Used to send messages to the servers
     func sendMessage(message : String,withNickName nickname : String,imageData : String){
         socket.emit("chatMessage", nickname,message,imageData)
     }
