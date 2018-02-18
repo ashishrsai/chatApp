@@ -8,7 +8,7 @@
 
 import UIKit
 
-class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate {
+class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
 
     @IBOutlet weak var testLable: UILabel!
@@ -18,13 +18,22 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     var chatMessages = [[String : AnyObject]]()
     let imagePicker = UIImagePickerController()
     var imageView: UIImage = #imageLiteral(resourceName: "imageAshish")
+    var didSendAnImage = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+
         if let nameToDisplay = username {
             testLable.text = nameToDisplay
+        }
+        
+        socketManager.sockets.getChatMessage { (messageInfo) -> Void in
+            DispatchQueue.main.async {
+                print("THIS IS WHAT YOU NEED TO READ")
+                self.chatMessages.append(messageInfo as [String : AnyObject])
+                self.chatTable.reloadData()
+            }
         }
     }
 
@@ -39,12 +48,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
        
-        socketManager.sockets.getChatMessage { (messageInfo) -> Void in
-            DispatchQueue.main.async {
-                self.chatMessages.append(messageInfo as [String : AnyObject])
-                self.chatTable.reloadData()
-            }
-        }
+       
         
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -101,9 +105,23 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
             
         }
         
+        /*
+        print("I am called")
         if(imageView != #imageLiteral(resourceName: "imageAshish")){
-            cell.sendImage.image = imageView
+            print("I am called 3")
+            didSendAnImage = 1
         }
+        if(didSendAnImage == 0){
+            print("I am called2")
+            cell.imageButton.isHidden = true
+        }else {
+            cell.imageButton.isHidden = false
+            didSendAnImage = 0
+        }
+         */
+        
+        
+        
         cell.messageTextCell.text = message
         cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         return cell
@@ -116,27 +134,36 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         }else{
             socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username)
             messageField.text = ""
+            
             messageField.resignFirstResponder()
         }
     }
     
     
     @IBAction func sendImageAction(_ sender: Any) {
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        let imagecontroller = UIImagePickerController()
+        imagecontroller.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagecontroller.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        self.present(imagecontroller, animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imageView = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
+        messageField.text = "Image File Attached"
+        self.dismiss(animated: true, completion: nil)
     }
     
-    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageView = pickedImage
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let imageVC = storyBoard.instantiateViewController(withIdentifier: "imageVCS") as! imageViewController
         
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        let currentChatMessage = chatMessages[indexPath.row]
+        let senderNickname = currentChatMessage["nickname"] as! String
+        let message = currentChatMessage["message"] as! String
+        let messageDate = currentChatMessage["date"] as! String
+        print("READ THIS",senderNickname,message,messageDate)
+        imageVC.detailOfImage = "by \(senderNickname.uppercased()) @ \(messageDate)"
+        imageVC.imageForSelectedImage = imageView
+        self.navigationController?.pushViewController(imageVC, animated: true)
     }
     
     

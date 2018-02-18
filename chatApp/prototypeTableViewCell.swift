@@ -10,10 +10,12 @@ import UIKit
 
 class prototypeTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var sendImage: UIImageView!
     @IBOutlet weak var messageTextCell: UILabel!
     @IBOutlet weak var userDataCell: UILabel!
     
+    
+    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         separatorInset = UIEdgeInsets.zero

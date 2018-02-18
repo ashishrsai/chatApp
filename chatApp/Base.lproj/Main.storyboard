@@ -101,15 +101,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tZ8-wy-gpj">
-                                                    <rect key="frame" x="15" y="-10" width="63" height="76"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageTextCell" destination="sxx-Jf-I3q" id="Uts-3d-i4c"/>
-                                            <outlet property="sendImage" destination="tZ8-wy-gpj" id="9tc-6G-Pax"/>
                                             <outlet property="userDataCell" destination="TLi-s9-rka" id="du6-ap-RNC"/>
                                         </connections>
                                     </tableViewCell>
@@ -146,6 +141,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ci-iG-qbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1591.2" y="132.68365817091455"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="wre-04-FI2">
+            <objects>
+                <viewController storyboardIdentifier="imageVCS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NCy-Ts-nxP" customClass="imageViewController" customModule="chatApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ndo-ht-9hR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EtB-pp-YHC">
+                                <rect key="frame" x="0.0" y="64" width="375" height="530"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oG0-Kw-Utp">
+                                <rect key="frame" x="16" y="626" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="fkE-rx-UCL"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageDetails" destination="oG0-Kw-Utp" id="lOZ-5m-X06"/>
+                        <outlet property="selectedImage" destination="EtB-pp-YHC" id="6JA-tw-pf4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V06-YE-CBx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2336.8000000000002" y="137.18140929535232"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lRs-9c-Xtl">

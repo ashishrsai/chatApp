@@ -16,6 +16,7 @@
 		C5AB90922038BC0F00DBF121 /* tableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AB90912038BC0F00DBF121 /* tableViewController.swift */; };
 		C5AB90942038CC5000DBF121 /* socketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AB90932038CC5000DBF121 /* socketManager.swift */; };
 		C5AB90962039D9D500DBF121 /* prototypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AB90952039D9D500DBF121 /* prototypeTableViewCell.swift */; };
+		C5AB9098203A265600DBF121 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AB9097203A265600DBF121 /* imageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		C5AB90912038BC0F00DBF121 /* tableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tableViewController.swift; sourceTree = "<group>"; };
 		C5AB90932038CC5000DBF121 /* socketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = socketManager.swift; sourceTree = "<group>"; };
 		C5AB90952039D9D500DBF121 /* prototypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = prototypeTableViewCell.swift; sourceTree = "<group>"; };
+		C5AB9097203A265600DBF121 /* imageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
 		E622D20FF6F57281AEBE2A27 /* Pods-chatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatApp/Pods-chatApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +95,7 @@
 				C5AB90912038BC0F00DBF121 /* tableViewController.swift */,
 				C5AB90932038CC5000DBF121 /* socketManager.swift */,
 				C5AB90952039D9D500DBF121 /* prototypeTableViewCell.swift */,
+				C5AB9097203A265600DBF121 /* imageViewController.swift */,
 			);
 			path = chatApp;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5AB9098203A265600DBF121 /* imageViewController.swift in Sources */,
 				C5AB90922038BC0F00DBF121 /* tableViewController.swift in Sources */,
 				C5AB90962039D9D500DBF121 /* prototypeTableViewCell.swift in Sources */,
 				C5AB90822038B8C400DBF121 /* ViewController.swift in Sources */,
