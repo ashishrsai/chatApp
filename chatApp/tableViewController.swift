@@ -122,8 +122,6 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         }
          */
         
-        
-        print(imageData)
         cell.messageTextCell.text = message
         cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         return cell
@@ -138,6 +136,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
             if(didSelectANewImage == 1){
                 dataForImage = didSendAnImage
                 didSelectANewImage = 0
+                print("THE VALUE YOU WANT",didSelectANewImage)
             }else{
                 dataForImage = " "
             }
@@ -176,7 +175,12 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         print("READ THIS",senderNickname,message,messageDate)
         imageVC.detailOfImage = "by \(senderNickname.uppercased()) @ \(messageDate)"
         //imageVC.imageForSelectedImage = imageView
-        imageVC.byteToImageValue = imageData
+        if(imageData == " "){
+            imageVC.selectModeOfImageSelection = 1
+        }else{
+            imageVC.byteToImageValue = imageData
+        }
+        
         self.navigationController?.pushViewController(imageVC, animated: true)
     }
     

@@ -15,7 +15,7 @@ class imageViewController: UIViewController {
     @IBOutlet weak var imageDetails: UILabel!
     
     var detailOfImage = String()
-    //var imageForSelectedImage = UIImage()
+    var selectModeOfImageSelection = 0
     var byteToImageValue = String()
     
     override func viewDidLoad() {
@@ -24,9 +24,14 @@ class imageViewController: UIViewController {
  
         imageDetails.text = detailOfImage
         
-        let data = Data(base64Encoded: byteToImageValue)
-        selectedImage.image = UIImage(data: data! )
+        if(selectModeOfImageSelection == 1){
+            selectedImage.image = #imageLiteral(resourceName: "imageAshish")
+        } else {
+            let data = Data(base64Encoded: byteToImageValue)
+            selectedImage.image = UIImage(data: data! )
 
+        }
+        
         // Do any additional setup after loading the view.
     }
 
