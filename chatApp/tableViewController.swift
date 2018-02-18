@@ -10,21 +10,43 @@ import UIKit
 
 class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
-
+    @IBOutlet weak var messageInCellText: UILabel!
     
-
+    @IBOutlet weak var sentByTextInCell: UILabel!
+    @IBOutlet weak var testLable: UILabel!
+    
     @IBOutlet weak var chatTable: UITableView!
     @IBOutlet weak var messageField: UITextField!
+    var username: String!
+    var chatMessages = [[String : AnyObject]]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let nameToDisplay = username {
+            testLable.text = nameToDisplay
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     override func viewWillAppear(_ animated: Bool) {
+        
         //configureTableView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+       
+        socketManager.sockets.getChatMessage { (messageInfo) -> Void in
+            DispatchQueue.main.async {
+                self.chatMessages.append(messageInfo as [String : AnyObject])
+                self.chatTable.reloadData()
+            }
+        }
+        
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveTextField(textField, moveDistance: -250, up: true)
@@ -66,6 +88,34 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath)
+        
+        let currentChatMessage = chatMessages[indexPath.row]
+        let senderNickname = currentChatMessage["nickname"] as! String
+        let message = currentChatMessage["message"] as! String
+        let messageDate = currentChatMessage["date"] as! String
+        
+        if senderNickname == username {
+            messageInCellText.textAlignment = NSTextAlignment.right
+            sentByTextInCell.textAlignment = NSTextAlignment.right
+            
+        }
+        
+        messageInCellText.text = message
+        sentByTextInCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
+        
         return cell
     }
+    
+   
+    @IBAction func sendMessageButtonAction(_ sender: Any) {
+        if (messageField.text?.isEmpty)!{
+            print("No text to send")
+        }else{
+            socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username)
+            messageField.text = ""
+            messageField.resignFirstResponder()
+        }
+    }
+    
+    
 }

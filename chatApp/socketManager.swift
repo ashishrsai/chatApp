@@ -29,9 +29,31 @@ class socketManager: NSObject {
    
     func connectUserToServer(nickname: String, completionHandler: @escaping (_ userList: [[String: AnyObject]]?) -> Void) {
         socket.emit("connectUser", nickname)
+        
         socket.on("userList") { ( dataArray, ack) -> Void in
             completionHandler(dataArray[0] as? [[String: AnyObject]])
         }
         
     }
+    
+    //Used to send messages to the server
+    func sendMessage(message : String,withNickName nickname : String){
+        socket.emit("chatMessage", nickname,message)
+    }
+    
+    //Used to get new Messages from the server
+    func getChatMessage(completionHandler: @escaping (_ messageInfo: [String: String]) -> Void) {
+        socket.on("newChatMessage") { (dataArray, socketAck) -> Void in
+            var messageDictionary = [String: String]()
+            if let nicknameString = dataArray[0] as? String, let messageString = dataArray[1] as? String, let dateString = dataArray[2] as? String {
+                messageDictionary["nickname"] = nicknameString
+                messageDictionary["message"] = messageString
+                messageDictionary["date"] =  dateString
+            }
+            
+            completionHandler(messageDictionary)
+        }
+    }
+    
+
 }

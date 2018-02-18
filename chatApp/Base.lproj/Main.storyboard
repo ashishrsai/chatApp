@@ -30,7 +30,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Chat"/>
                                 <connections>
-                                    <segue destination="mOO-ny-oHu" kind="show" id="bfH-KS-iKT"/>
+                                    <action selector="chatButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2G3-K1-AXy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -38,6 +38,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="CfT-8Q-XDt"/>
+                    <connections>
+                        <outlet property="userNameTextField" destination="jKY-cz-dU0" id="rn1-gl-Wge"/>
+                        <segue destination="mOO-ny-oHu" kind="show" identifier="chatButtonSegue" id="HYh-h0-uD4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,6 +71,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="SEND"/>
+                                <connections>
+                                    <action selector="sendMessageButtonAction:" destination="mOO-ny-oHu" eventType="touchUpInside" id="VQT-ep-gEn"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6rb-c7-f2M">
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
@@ -79,6 +86,22 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j6S-G0-HJ2" id="cOI-8b-JVT">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLi-s9-rka">
+                                                    <rect key="frame" x="0.0" y="22" width="375" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxx-Jf-I3q">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -87,6 +110,13 @@
                                     <outlet property="delegate" destination="mOO-ny-oHu" id="3eo-On-DIr"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdk-jE-i8q">
+                                <rect key="frame" x="328" y="617" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gON-fu-eos"/>
@@ -94,6 +124,9 @@
                     <connections>
                         <outlet property="chatTable" destination="6rb-c7-f2M" id="CKI-Wq-LAp"/>
                         <outlet property="messageField" destination="pig-CZ-ocE" id="8GB-HX-rN7"/>
+                        <outlet property="messageInCellText" destination="sxx-Jf-I3q" id="bai-bH-MRp"/>
+                        <outlet property="sentByTextInCell" destination="TLi-s9-rka" id="Xpk-yt-nnA"/>
+                        <outlet property="testLable" destination="Jdk-jE-i8q" id="Cfq-Af-6LJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ci-iG-qbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
