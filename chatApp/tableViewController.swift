@@ -10,9 +10,7 @@ import UIKit
 
 class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var messageInCellText: UILabel!
-    
-    @IBOutlet weak var sentByTextInCell: UILabel!
+
     @IBOutlet weak var testLable: UILabel!
     
     @IBOutlet weak var chatTable: UITableView!
@@ -83,11 +81,12 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return chatMessages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! prototypeTableViewCell
         
         let currentChatMessage = chatMessages[indexPath.row]
         let senderNickname = currentChatMessage["nickname"] as! String
@@ -95,14 +94,14 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         let messageDate = currentChatMessage["date"] as! String
         
         if senderNickname == username {
-            messageInCellText.textAlignment = NSTextAlignment.right
-            sentByTextInCell.textAlignment = NSTextAlignment.right
+            cell.messageTextCell.textAlignment = NSTextAlignment.right
+            cell.userDataCell.textAlignment = NSTextAlignment.right
             
         }
         
-        messageInCellText.text = message
-        sentByTextInCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         
+        cell.messageTextCell.text = message
+        cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         return cell
     }
     

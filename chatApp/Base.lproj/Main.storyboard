@@ -80,7 +80,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatCell" id="j6S-G0-HJ2">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatCell" id="j6S-G0-HJ2" customClass="prototypeTableViewCell" customModule="chatApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j6S-G0-HJ2" id="cOI-8b-JVT">
@@ -103,6 +103,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageTextCell" destination="sxx-Jf-I3q" id="Uts-3d-i4c"/>
+                                            <outlet property="userDataCell" destination="TLi-s9-rka" id="du6-ap-RNC"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -124,8 +128,6 @@
                     <connections>
                         <outlet property="chatTable" destination="6rb-c7-f2M" id="CKI-Wq-LAp"/>
                         <outlet property="messageField" destination="pig-CZ-ocE" id="8GB-HX-rN7"/>
-                        <outlet property="messageInCellText" destination="sxx-Jf-I3q" id="bai-bH-MRp"/>
-                        <outlet property="sentByTextInCell" destination="TLi-s9-rka" id="Xpk-yt-nnA"/>
                         <outlet property="testLable" destination="Jdk-jE-i8q" id="Cfq-Af-6LJ"/>
                     </connections>
                 </viewController>

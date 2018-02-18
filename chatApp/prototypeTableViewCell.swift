@@ -10,9 +10,17 @@ import UIKit
 
 class prototypeTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var messageTextCell: UILabel!
+    @IBOutlet weak var userDataCell: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        separatorInset = UIEdgeInsets.zero
+        preservesSuperviewLayoutMargins = false
+        layoutMargins = UIEdgeInsets.zero
+        layoutIfNeeded()
+        selectionStyle = UITableViewCellSelectionStyle.none
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
