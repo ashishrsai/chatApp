@@ -103,15 +103,59 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         let currentChatMessage = chatMessages[indexPath.row]
         let senderNickname = currentChatMessage["nickname"] as! String
         let message = currentChatMessage["message"] as! String
-        let imageData = currentChatMessage["imageData"] as! String
+        var imageData = currentChatMessage["imageData"] as! String
+        let isEncryptionOn = currentChatMessage["isEncryptionOn"] as! String
         let messageDate = currentChatMessage["date"] as! String
         
-        if senderNickname == username {
-            cell.messageTextCell.textAlignment = NSTextAlignment.right
-            cell.userDataCell.textAlignment = NSTextAlignment.right
-        
+        if(isEncryptionOn == "1"){
+            do{
+                let aes = try AES(key: "passwordpassword", iv: "drowssapdrowssap")
+                //for message
+                let messageData = Data(base64Encoded: message)
+                let defaultMessageForm = [UInt8](messageData!)
+                let plainMessageText = try aes.decrypt(defaultMessageForm)
+                let plainMessageStr:String = String(bytes: plainMessageText, encoding: String.Encoding.utf8)!
+                //for username
+                let usernamedata = Data(base64Encoded: senderNickname)
+                let defaultUsernameForm = [UInt8](usernamedata!)
+                let plainUsernameText = try aes.decrypt(defaultUsernameForm)
+                let usernameStr:String = String(bytes: plainUsernameText, encoding: String.Encoding.utf8)!
+                //for image
+                if(imageData == " "){
+                    imageData = " "
+                }else{
+                    
+                    let imagedata = Data(base64Encoded: imageData)
+                    let defaultImageForm = [UInt8](imagedata!)
+                    let plainImageText = try aes.decrypt(defaultImageForm)
+                    let imageStr:String = String(bytes: plainImageText, encoding: String.Encoding.utf8)!
+                    imageData = imageStr
+
+                }
+                
+                if usernameStr == username {
+                    cell.messageTextCell.textAlignment = NSTextAlignment.right
+                    cell.userDataCell.textAlignment = NSTextAlignment.right
+                }
+                
+                cell.messageTextCell.text = plainMessageStr
+                cell.userDataCell.text = "by \(usernameStr.uppercased()) @ \(messageDate)"
+                
+                
+            }catch{
+                print("Error in decryption")
+            }
             
+        } else{
+            if senderNickname == username {
+                cell.messageTextCell.textAlignment = NSTextAlignment.right
+                cell.userDataCell.textAlignment = NSTextAlignment.right
+            }
+            
+            cell.messageTextCell.text = message
+            cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
         }
+      
         
         /*
         print("I am called")
@@ -128,8 +172,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         }
          */
         
-        cell.messageTextCell.text = message
-        cell.userDataCell.text = "by \(senderNickname.uppercased()) @ \(messageDate)"
+       
         return cell
     }
     
@@ -160,9 +203,13 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
                     encryptedUsername = encryptedUsernameData.base64EncodedString()
                     //Now we will encrypt image if a new image has been attached
                     if(dataForImage != " "){
-                        let cipherImagetext = try aes.encrypt(Array(messageField.text!.utf8))
+                        print("INSIDE IMAGE ENCRYPTION")
+                        print("INSIDE PRINT FOR DATA ",dataForImage)
+                        let cipherImagetext = try aes.encrypt(Array(dataForImage.utf8))
+                        print("INSIDE AFTER ENCRYPT",cipherImagetext)
                         let encryptedImageData = Data(cipherImagetext)
                         encryptedImage = encryptedImageData.base64EncodedString()
+                        print("INSIDE AND ITS DONE",encryptedImage)
                     } else {
                         encryptedImage = " "
                     }
@@ -171,11 +218,11 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
                     print("Encryption Failed ")
                 }
                 
-                socketManager.sockets.sendMessage(message: encryptedMessage, withNickName: encryptedUsername,imageData: encryptedImage)
+                socketManager.sockets.sendMessage(message: encryptedMessage, withNickName: encryptedUsername,imageData: encryptedImage,isEncryptionOn: "1")
 
             }else {
                 print("Check encryption is 0 and I am in else")
-                socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage)
+                socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage,isEncryptionOn: "0")
             }
             
             messageField.text = ""
@@ -207,16 +254,66 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         let currentChatMessage = chatMessages[indexPath.row]
         let senderNickname = currentChatMessage["nickname"] as! String
         let message = currentChatMessage["message"] as! String
-        let imageData = currentChatMessage["imageData"] as! String
+        var imageData = currentChatMessage["imageData"] as! String
+        let isEncryptionOn = currentChatMessage["isEncryptionOn"] as! String
         let messageDate = currentChatMessage["date"] as! String
         print("READ THIS",senderNickname,message,messageDate)
-        imageVC.detailOfImage = "by \(senderNickname.uppercased()) @ \(messageDate)"
-        //imageVC.imageForSelectedImage = imageView
-        if(imageData == " "){
-            imageVC.selectModeOfImageSelection = 1
-        }else{
-            imageVC.byteToImageValue = imageData
+        
+        if(isEncryptionOn == "1"){
+            do{
+                let aes = try AES(key: "passwordpassword", iv: "drowssapdrowssap")
+                //for message
+                let messageData = Data(base64Encoded: message)
+                let defaultMessageForm = [UInt8](messageData!)
+                let plainMessageText = try aes.decrypt(defaultMessageForm)
+                let plainMessageStr:String = String(bytes: plainMessageText, encoding: String.Encoding.utf8)!
+                //for username
+                let usernamedata = Data(base64Encoded: senderNickname)
+                let defaultUsernameForm = [UInt8](usernamedata!)
+                let plainUsernameText = try aes.decrypt(defaultUsernameForm)
+                let usernameStr:String = String(bytes: plainUsernameText, encoding: String.Encoding.utf8)!
+                //for image
+                if(imageData == " "){
+                    imageData = " "
+                }else{
+                    
+                    let imagedata = Data(base64Encoded: imageData)
+                    let defaultImageForm = [UInt8](imagedata!)
+                    let plainImageText = try aes.decrypt(defaultImageForm)
+                    let imageStr:String = String(bytes: plainImageText, encoding: String.Encoding.utf8)!
+                    imageData = imageStr
+                    
+                }
+                
+                imageVC.detailOfImage = "by \(usernameStr.uppercased()) @ \(messageDate)"
+                //imageVC.imageForSelectedImage = imageView
+                if(imageData == " "){
+                    imageVC.selectModeOfImageSelection = 1
+                }else{
+                    imageVC.byteToImageValue = imageData
+                }
+                
+            
+            }catch{
+                print("Error in decryption")
+            }
+            
+          
+            
+            
+        } else{
+           
+            imageVC.detailOfImage = "by \(senderNickname.uppercased()) @ \(messageDate)"
+            //imageVC.imageForSelectedImage = imageView
+            if(imageData == " "){
+                imageVC.selectModeOfImageSelection = 1
+            }else{
+                imageVC.byteToImageValue = imageData
+            }
+
         }
+        
+        
         
         self.navigationController?.pushViewController(imageVC, animated: true)
     }

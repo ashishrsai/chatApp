@@ -37,18 +37,19 @@ class socketManager: NSObject {
     }
     
     //Used to send messages to the servers
-    func sendMessage(message : String,withNickName nickname : String,imageData : String){
-        socket.emit("chatMessage", nickname,message,imageData)
+    func sendMessage(message : String,withNickName nickname : String,imageData : String,isEncryptionOn : String){
+        socket.emit("chatMessage", nickname,message,imageData,isEncryptionOn)
     }
     
     //Used to get new Messages from the server
     func getChatMessage(completionHandler: @escaping (_ messageInfo: [String: String]) -> Void) {
         socket.on("newChatMessage") { (dataArray, socketAck) -> Void in
             var messageDictionary = [String: String]()
-            if let nicknameString = dataArray[0] as? String, let messageString = dataArray[1] as? String, let imageData = dataArray[2] as? String, let dateString = dataArray[3] as? String{
+            if let nicknameString = dataArray[0] as? String, let messageString = dataArray[1] as? String, let imageData = dataArray[2] as? String, let enyStr = dataArray[3] as? String, let dateString = dataArray[4] as? String{
                 messageDictionary["nickname"] = nicknameString
                 messageDictionary["message"] = messageString
                 messageDictionary["imageData"] = imageData
+                messageDictionary["isEncryptionOn"] = enyStr
                 messageDictionary["date"] =  dateString
                 
             }
