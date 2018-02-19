@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		763B19EC5F5F2BD1F208CD86 /* Pods_chatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2D04F1A825AB2C91EBE5CB /* Pods_chatApp.framework */; };
+		C52AE9CE203B20FE00A1D96C /* public1.pem in Resources */ = {isa = PBXBuildFile; fileRef = C52AE9CC203B20FE00A1D96C /* public1.pem */; };
+		C52AE9CF203B20FE00A1D96C /* private1.pem in Resources */ = {isa = PBXBuildFile; fileRef = C52AE9CD203B20FE00A1D96C /* private1.pem */; };
+		C52AE9D2203B216800A1D96C /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = C52AE9D0203B216500A1D96C /* public.pem */; };
+		C52AE9D3203B216800A1D96C /* private.pem in Resources */ = {isa = PBXBuildFile; fileRef = C52AE9D1203B216600A1D96C /* private.pem */; };
 		C5AB90802038B8C400DBF121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AB907F2038B8C400DBF121 /* AppDelegate.swift */; };
 		C5AB90822038B8C400DBF121 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AB90812038B8C400DBF121 /* ViewController.swift */; };
 		C5AB90852038B8C400DBF121 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5AB90832038B8C400DBF121 /* Main.storyboard */; };
@@ -22,6 +26,10 @@
 /* Begin PBXFileReference section */
 		1AF8182DB5514C958D5C7702 /* Pods-chatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chatApp/Pods-chatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5D2D04F1A825AB2C91EBE5CB /* Pods_chatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C52AE9CC203B20FE00A1D96C /* public1.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = public1.pem; path = ../../../../../public1.pem; sourceTree = "<group>"; };
+		C52AE9CD203B20FE00A1D96C /* private1.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = private1.pem; path = ../../../../../private1.pem; sourceTree = "<group>"; };
+		C52AE9D0203B216500A1D96C /* public.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = public.pem; path = ../../../../../public.pem; sourceTree = "<group>"; };
+		C52AE9D1203B216600A1D96C /* private.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = private.pem; path = ../../../../../private.pem; sourceTree = "<group>"; };
 		C5AB907C2038B8C400DBF121 /* chatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5AB907F2038B8C400DBF121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5AB90812038B8C400DBF121 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +98,10 @@
 				C5AB90812038B8C400DBF121 /* ViewController.swift */,
 				C5AB90832038B8C400DBF121 /* Main.storyboard */,
 				C5AB90862038B8C400DBF121 /* Assets.xcassets */,
+				C52AE9CD203B20FE00A1D96C /* private1.pem */,
+				C52AE9CC203B20FE00A1D96C /* public1.pem */,
+				C52AE9D1203B216600A1D96C /* private.pem */,
+				C52AE9D0203B216500A1D96C /* public.pem */,
 				C5AB90882038B8C400DBF121 /* LaunchScreen.storyboard */,
 				C5AB908B2038B8C400DBF121 /* Info.plist */,
 				C5AB90912038BC0F00DBF121 /* tableViewController.swift */,
@@ -162,7 +174,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C52AE9CF203B20FE00A1D96C /* private1.pem in Resources */,
+				C52AE9D3203B216800A1D96C /* private.pem in Resources */,
 				C5AB908A2038B8C400DBF121 /* LaunchScreen.storyboard in Resources */,
+				C52AE9CE203B20FE00A1D96C /* public1.pem in Resources */,
+				C52AE9D2203B216800A1D96C /* public.pem in Resources */,
 				C5AB90872038B8C400DBF121 /* Assets.xcassets in Resources */,
 				C5AB90852038B8C400DBF121 /* Main.storyboard in Resources */,
 			);
