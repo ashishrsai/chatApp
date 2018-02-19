@@ -58,5 +58,21 @@ class socketManager: NSObject {
         }
     }
     
+    //Sending Message for mutual key exchange
+    func establishMutualKeys(message : String){
+        socket.emit("mutualKeyGeneration",message)
+    }
+    
+    //Receiving Message for mutual key exchange
+    func getMutualKeyMessage(completionHandler: @escaping (_ messageInfo: [String: String]) -> Void) {
+        socket.on("newMutualKeyMessage") { (dataArray, socketAck) -> Void in
+            var mutualKeyMessageDictionary = [String: String]()
+            if let messageString = dataArray[0] as? String{
+                mutualKeyMessageDictionary["message"] = messageString
+            }
+            
+            completionHandler(mutualKeyMessageDictionary)
+        }
+    }
 
 }
