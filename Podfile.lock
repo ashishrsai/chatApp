@@ -1,15 +1,18 @@
 PODS:
+  - CryptoSwift (0.8.2)
   - Socket.IO-Client-Swift (13.1.1):
     - Starscream (~> 3.0.2)
   - Starscream (3.0.4)
 
 DEPENDENCIES:
+  - CryptoSwift
   - Socket.IO-Client-Swift (~> 13.1.0)
 
 SPEC CHECKSUMS:
+  CryptoSwift: 6b90cb3227de5ad1b034a0156f5c027399aea60c
   Socket.IO-Client-Swift: f22222913f29801e30ae0df712db663ec096edc2
   Starscream: f5da93fe6984c77b694366bf7299b7dc63a76f26
 
-PODFILE CHECKSUM: d3aa52fd2e8748555e05d47d9510b9b1cca10847
+PODFILE CHECKSUM: 1630ae82aa13eefaea4f598623d274ede69e4b0b
 
 COCOAPODS: 1.4.0

@@ -7,5 +7,6 @@ target 'chatApp' do
 
   # Pods for chatApp
   pod 'Socket.IO-Client-Swift', '~> 13.1.0'
+  pod 'CryptoSwift'
 
 end

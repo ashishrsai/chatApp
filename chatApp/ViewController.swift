@@ -11,8 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
     
+    @IBOutlet weak var encryptionOn: UISwitch!
     @IBOutlet weak var userNameTextField: UITextField!
-    
+    var isEncryptionOn = 0
     var username : String = ""
     var users = [[String: AnyObject]]()
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
         
         if let destination = segue.destination as? tableViewController {
             destination.username = userNameTextField.text
+            destination.checkEncryption = isEncryptionOn
         }
     }
         
@@ -37,6 +39,11 @@ class ViewController: UIViewController {
         if(userNameTextField.text?.isEmpty)!{
             print("It is empty can not do anything")
         }else{
+            if(encryptionOn.isOn){
+                isEncryptionOn = 1
+            }else{
+                isEncryptionOn = 0
+            }
             username = userNameTextField.text!
             print("USername is equal to",username)
             socketManager.sockets.connectUserToServer(nickname: username, completionHandler: { (userList) -> Void in

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CryptoSwift
 
 class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -21,6 +22,10 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     var didSendAnImage = ""
     var didSelectANewImage = 0
     var dataForImage = ""
+    var checkEncryption = 0
+    var encryptedMessage = " "
+    var encryptedUsername = " "
+    var encryptedImage = " "
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +34,10 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
             testLable.text = nameToDisplay
         }
         
+        print("THIS IS WHAT YOU NEED TO READ",checkEncryption)
         socketManager.sockets.getChatMessage { (messageInfo) -> Void in
             DispatchQueue.main.async {
-                print("THIS IS WHAT YOU NEED TO READ")
+                
                 self.chatMessages.append(messageInfo as [String : AnyObject])
                 self.chatTable.reloadData()
             }
@@ -140,7 +146,38 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
             }else{
                 dataForImage = " "
             }
-            socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage)
+            
+            if(checkEncryption == 1){
+                //AES
+                do{
+                    let aes = try AES(key: "passwordpassword", iv: "drowssapdrowssap")
+                    let cipherMessagetext = try aes.encrypt(Array(messageField.text!.utf8))
+                    let encryptedMessageData = Data(cipherMessagetext)
+                    encryptedMessage = encryptedMessageData.base64EncodedString()
+                    //Now we will encrypt the username
+                    let cipherUsernametext = try aes.encrypt(Array(username.utf8))
+                    let encryptedUsernameData = Data(cipherUsernametext)
+                    encryptedUsername = encryptedUsernameData.base64EncodedString()
+                    //Now we will encrypt image if a new image has been attached
+                    if(dataForImage != " "){
+                        let cipherImagetext = try aes.encrypt(Array(messageField.text!.utf8))
+                        let encryptedImageData = Data(cipherImagetext)
+                        encryptedImage = encryptedImageData.base64EncodedString()
+                    } else {
+                        encryptedImage = " "
+                    }
+                    
+                }catch{
+                    print("Encryption Failed ")
+                }
+                
+                socketManager.sockets.sendMessage(message: encryptedMessage, withNickName: encryptedUsername,imageData: encryptedImage)
+
+            }else {
+                print("Check encryption is 0 and I am in else")
+                socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage)
+            }
+            
             messageField.text = ""
             
             messageField.resignFirstResponder()

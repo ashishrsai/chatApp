@@ -33,12 +33,24 @@
                                     <action selector="chatButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2G3-K1-AXy"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I4O-mZ-3vO">
+                                <rect key="frame" x="268" y="255" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End to End Encryption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2he-hg-8Lw">
+                                <rect key="frame" x="60" y="260" width="185" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="CfT-8Q-XDt"/>
                     <connections>
+                        <outlet property="encryptionOn" destination="I4O-mZ-3vO" id="9ul-aJ-iWX"/>
                         <outlet property="userNameTextField" destination="jKY-cz-dU0" id="rn1-gl-Wge"/>
                         <segue destination="mOO-ny-oHu" kind="show" identifier="chatButtonSegue" id="HYh-h0-uD4"/>
                     </connections>
