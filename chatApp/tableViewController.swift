@@ -26,6 +26,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     var encryptedMessage = " "
     var encryptedUsername = " "
     var encryptedImage = " "
+    var mutualKey = " "
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +110,8 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         
         if(isEncryptionOn == "1"){
             do{
-                let aes = try AES(key: "passwordpassword", iv: "drowssapdrowssap")
+                print("MUTUAL KEY SEE THIS",mutualKey)
+                let aes = try AES(key: mutualKey, iv: "drowssapdrowssap")
                 //for message
                 let messageData = Data(base64Encoded: message)
                 let defaultMessageForm = [UInt8](messageData!)
@@ -193,7 +195,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
             if(checkEncryption == 1){
                 //AES
                 do{
-                    let aes = try AES(key: "passwordpassword", iv: "drowssapdrowssap")
+                    let aes = try AES(key: mutualKey, iv: "drowssapdrowssap")
                     let cipherMessagetext = try aes.encrypt(Array(messageField.text!.utf8))
                     let encryptedMessageData = Data(cipherMessagetext)
                     encryptedMessage = encryptedMessageData.base64EncodedString()
@@ -261,7 +263,7 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         
         if(isEncryptionOn == "1"){
             do{
-                let aes = try AES(key: "passwordpassword", iv: "drowssapdrowssap")
+                let aes = try AES(key: mutualKey, iv: "drowssapdrowssap")
                 //for message
                 let messageData = Data(base64Encoded: message)
                 let defaultMessageForm = [UInt8](messageData!)

@@ -47,8 +47,8 @@
                                     <action selector="mutualKeyGeneration:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ppt-hy-Sdk"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fj7-dq-Zva">
-                                <rect key="frame" x="166" y="176" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Mutual Key Generation In Progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fj7-dq-Zva">
+                                <rect key="frame" x="0.0" y="176" width="375" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -69,6 +69,8 @@
                     <navigationItem key="navigationItem" id="CfT-8Q-XDt"/>
                     <connections>
                         <outlet property="encryptionOn" destination="I4O-mZ-3vO" id="9ul-aJ-iWX"/>
+                        <outlet property="labeForMutualKeyUpdate" destination="fj7-dq-Zva" id="NlF-Ij-PEH"/>
+                        <outlet property="mutualKeyGenButton" destination="ieX-Mw-hq1" id="sRo-YR-bBT"/>
                         <outlet property="userNameTextField" destination="jKY-cz-dU0" id="rn1-gl-Wge"/>
                         <segue destination="mOO-ny-oHu" kind="show" identifier="chatButtonSegue" id="HYh-h0-uD4"/>
                     </connections>

@@ -104,9 +104,12 @@ class cryptographicModel: NSObject {
         //RSAVerify
         var returnBool :Bool = false
         do{
+            print("INSIDE RSA VERIFY")
             let publicKey = try PublicKey(pemNamed: key)
             let clear = try ClearMessage(string: message, using: .utf8)
+            print("ClearMessage",clear)
             let signature = try Signature(base64Encoded: textToVerify)
+            print("Signature =",signature)
             let isSuccessful = try clear.verify(with: publicKey, signature: signature, digestType: .sha256)
             print("LOOK AT THIS mate",isSuccessful)
             returnBool = isSuccessful
