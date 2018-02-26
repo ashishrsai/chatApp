@@ -75,6 +75,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C52AE9DA20447B5500A1D96C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C5AB90812038B8C400DBF121 /* ViewController.swift */,
+				C5AB90912038BC0F00DBF121 /* tableViewController.swift */,
+				C5AB90952039D9D500DBF121 /* prototypeTableViewCell.swift */,
+				C5AB9097203A265600DBF121 /* imageViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C52AE9DB20447B6700A1D96C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C52AE9D8203B644200A1D96C /* cryptographicModel.swift */,
+				C5AB90932038CC5000DBF121 /* socketManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C5AB90732038B8C400DBF121 = {
 			isa = PBXGroup;
 			children = (
@@ -96,8 +116,9 @@
 		C5AB907E2038B8C400DBF121 /* chatApp */ = {
 			isa = PBXGroup;
 			children = (
+				C52AE9DB20447B6700A1D96C /* Model */,
+				C52AE9DA20447B5500A1D96C /* View */,
 				C5AB907F2038B8C400DBF121 /* AppDelegate.swift */,
-				C5AB90812038B8C400DBF121 /* ViewController.swift */,
 				C5AB90832038B8C400DBF121 /* Main.storyboard */,
 				C5AB90862038B8C400DBF121 /* Assets.xcassets */,
 				C52AE9CD203B20FE00A1D96C /* private1.pem */,
@@ -106,11 +127,6 @@
 				C52AE9D0203B216500A1D96C /* public.pem */,
 				C5AB90882038B8C400DBF121 /* LaunchScreen.storyboard */,
 				C5AB908B2038B8C400DBF121 /* Info.plist */,
-				C5AB90912038BC0F00DBF121 /* tableViewController.swift */,
-				C5AB90932038CC5000DBF121 /* socketManager.swift */,
-				C5AB90952039D9D500DBF121 /* prototypeTableViewCell.swift */,
-				C5AB9097203A265600DBF121 /* imageViewController.swift */,
-				C52AE9D8203B644200A1D96C /* cryptographicModel.swift */,
 			);
 			path = chatApp;
 			sourceTree = "<group>";

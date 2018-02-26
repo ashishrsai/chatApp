@@ -106,7 +106,9 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         let message = currentChatMessage["message"] as! String
         var imageData = currentChatMessage["imageData"] as! String
         let isEncryptionOn = currentChatMessage["isEncryptionOn"] as! String
+        let hash = currentChatMessage["hash"] as! String
         let messageDate = currentChatMessage["date"] as! String
+        let hashForImageData = imageData
         
         if(isEncryptionOn == "1"){
             do{
@@ -139,7 +141,16 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
                     cell.messageTextCell.textAlignment = NSTextAlignment.right
                     cell.userDataCell.textAlignment = NSTextAlignment.right
                 }
-                
+                let checkHashString = message+hashForImageData
+                print("Hash MSG TABLE",checkHashString)
+
+                let hashOfPlainTextThatWeHave = checkHashString.sha256()
+                print("Hash TABLE",hashOfPlainTextThatWeHave)
+                if(hashOfPlainTextThatWeHave == hash){
+                    print("Data is the same")
+                }else{
+                    print("hash does not match")
+                }
                 cell.messageTextCell.text = plainMessageStr
                 cell.userDataCell.text = "by \(usernameStr.uppercased()) @ \(messageDate)"
                 
@@ -219,12 +230,15 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
                 }catch{
                     print("Encryption Failed ")
                 }
-                
-                socketManager.sockets.sendMessage(message: encryptedMessage, withNickName: encryptedUsername,imageData: encryptedImage,isEncryptionOn: "1")
+                let completeMessage = encryptedMessage+encryptedImage
+                print("Hash MSG",completeMessage)
+                let hashOfCompleteMessage = completeMessage.sha256()
+                print("Hash SENDBUTTON",hashOfCompleteMessage)
+                socketManager.sockets.sendMessage(message: encryptedMessage, withNickName: encryptedUsername,imageData: encryptedImage,isEncryptionOn: "1",hash: hashOfCompleteMessage)
 
             }else {
                 print("Check encryption is 0 and I am in else")
-                socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage,isEncryptionOn: "0")
+                socketManager.sockets.sendMessage(message: messageField.text!, withNickName: username,imageData: dataForImage,isEncryptionOn: "0", hash: " ")
             }
             
             messageField.text = ""
