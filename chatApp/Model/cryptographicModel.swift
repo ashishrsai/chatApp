@@ -1,7 +1,7 @@
 //
 //  cryptographicModel.swift
 //  chatApp
-//
+//  This class is base of all cryptographic methods used by this chat app
 //  Created by Ashutosh Kumar sai on 19/02/18.
 //  Copyright © 2018 Ashish Kumar sai. All rights reserved.
 //
@@ -13,7 +13,16 @@ import SwiftyRSA
 
 class cryptographicModel: NSObject {
     
+    //We make this class singlton so that methods in this can be called by any other class
     static let cryptoModel = cryptographicModel()
+    
+    /*
+     * symmetricAESEncryption(key: String,message: String)
+     * function used to encrypt a given messsage string with a given key by using AES from CryptoSwift libarary
+     *
+     * parameter: key: String,message: String //Key and message
+     * return: String // This will return an encrypted text
+     */
     
     func symmetricAESEncryption(key: String,message: String)-> String{
         //AES
@@ -30,6 +39,14 @@ class cryptographicModel: NSObject {
         
         return returnString
     }
+    
+    /*
+     * symmetricAESDecryption(key: String,message: String)
+     * function used to decrypt a given messsage string with a given key by using AES from CryptoSwift libarary
+     *
+     * parameter: key: String,message: String //Key and message
+     * return: String // This will return an decrypted text
+     */
     
     func symmetricAESDecryption(key: String,message: String)-> String{
         //AES Decryption
@@ -48,6 +65,14 @@ class cryptographicModel: NSObject {
         
     }
     
+    /*
+     * asymmetricRSAEncryption(key: String,message: String)
+     * function used to encrypt a given messsage string with a given key by using RSA from SwiftyRSA libarary
+     *
+     * parameter: key: String,message: String //Key and message
+     * return: String // This will return an encrypted text
+     */
+    
     func asymmetricRSAEncryption(key: String,message: String)-> String{
         //RSAEncryption
         var returnString = " "
@@ -64,6 +89,15 @@ class cryptographicModel: NSObject {
         }
         return returnString
     }
+   
+    /*
+     * asymmetricRSADecryption(key: String,message: String)
+     * function used to decrypt a given messsage string with a given key by using RSA from SwiftyRSA libarary
+     *
+     * parameter: key: String,message: String //Key and message
+     * return: String // This will return an decrypted text
+     */
+
     
     func asymmetricRSADecryption(key: String,message: String)-> String{
         //RSA Decryption
@@ -83,6 +117,14 @@ class cryptographicModel: NSObject {
         
     }
     
+    /*
+     * asymmetricRSASign(key: String,message: String)
+     * function used to digitally Sign a given messsage string with a given key by using RSA from SwiftyRSA libarary
+     *
+     * parameter: key: String,message: String //Key and message
+     * return: String // This will return an signed text
+     */
+    
     func asymmetricRSASign(key: String,message: String)-> String{
         //RSASign
         var returnString = " "
@@ -100,6 +142,13 @@ class cryptographicModel: NSObject {
         return returnString
     }
     
+    /*
+     * asymmetricRSAVerify(key: String,message: String,textToVerify: String)
+     * function used to digitally verify a given messsage string with a given key by using RSA from SwiftyRSA libarary
+     *
+     * parameter: key: key: String,message: String,textToVerify: String //Key and message, text to verify against the key
+     * return: bool // This will return true if sign was verified else false
+     */
     func asymmetricRSAVerify(key: String,message: String,textToVerify: String)-> Bool{
         //RSAVerify
         var returnBool :Bool = false
