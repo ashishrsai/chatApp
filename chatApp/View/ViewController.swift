@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     let challengeByUserA = "asdfghjk"
     var challengeByUserb = " "
     var finalMutualKey = " "
+    
+    static let keyExchangeVar = ViewController()
    
     
     override func viewDidLoad() {
@@ -142,7 +144,14 @@ class ViewController: UIViewController {
         if(signedHashSentByUserA == true){
             mutualKey = challengeSentByUserA+challengeByUserB
             print(mutualKey)
-            finalMutualKey = mutualKey
+            //In order to get first 16 chars out of the hashed string
+            print("CHECK THIS OUT MATE ")
+            let randomVar = mutualKey.sha256()
+            let startIndex = randomVar.index(randomVar.startIndex, offsetBy: 16)
+            let finalHashOfMutualKey = String(randomVar[..<startIndex])
+            print("CHECK",finalHashOfMutualKey,finalHashOfMutualKey.count)
+            finalMutualKey = finalHashOfMutualKey
+            mutualKey = finalMutualKey
         }
         //Now that we have the mutual key we can procced
         //now we have respond to the challenge of user A
@@ -177,7 +186,15 @@ class ViewController: UIViewController {
         //3
         hashOfBothOfTheChallengeSigned = messageRecivedFromOtherUserArray[2]
         //Lets generate our mutual key here
-        let mutualKey = challengeByUserA+challengeFromTheOtherUser
+        var mutualKey = challengeByUserA+challengeFromTheOtherUser
+        //Now we create hash of the mutualkey and take out first 16 chars to have the actual mutual key
+        let randomVar = mutualKey.sha256()
+        let startIndex = randomVar.index(randomVar.startIndex, offsetBy: 16)
+        let finalHashOfMutualKey = String(randomVar[..<startIndex])
+        print("CHECK",finalHashOfMutualKey,finalHashOfMutualKey.count)
+        let finalMutualKeys = finalHashOfMutualKey
+        mutualKey = finalMutualKeys
+        
         print("OUR MUTUAL KEY",mutualKey)
         print("OUR ALL DATA",challengeFromTheOtherUser)
         
@@ -227,6 +244,7 @@ class ViewController: UIViewController {
         
         
     }
+    
 
 
 }
