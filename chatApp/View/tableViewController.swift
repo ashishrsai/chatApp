@@ -37,6 +37,8 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     var finalMutualKey = " "
     //CODE ENDS FOR MUTUAL KEY GEN
     
+    
+    //viewDidLoad method is invoked when the screen is diplayed
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -86,21 +88,24 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
        
         
     }
+    
+    //Textfield code for moving the view when keyboard is displayed
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveTextField(textField, moveDistance: -250, up: true)
     }
     
-
+    //Textfield code for moving the view when keyboard is displayed
     func textFieldDidEndEditing(_ textField: UITextField) {
         moveTextField(textField, moveDistance: -250, up: false)
     }
     
-
+    //Textfield code for moving the view when keyboard is displayed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    //Textfield code for moving the view when keyboard is displayed
     func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
@@ -112,6 +117,12 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         UIView.commitAnimations()
     }
     
+    /*
+     * configureChatTable()
+     * This function is called when the table is displayed
+     * method used to configure the view of table
+     */
+    
     func configureChatTable(){
         chatTable.delegate = self
         chatTable.dataSource = self
@@ -120,9 +131,17 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         chatTable.tableFooterView = UIView(frame: CGRect.zero)
     }
     
+    //Function is used to get the number of table entry
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chatMessages.count
     }
+    
+    
+    /*
+     * tableView()
+     * This function is used in order to decrypt the messages recieved from sockets if encryption was used while sending the message
+     */
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -216,6 +235,10 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         return cell
     }
     
+    /*
+     * sendMessageButtonAction()
+     * This function is used in order to encrypt the messages if encryption is used and send the encrypted or plain text to server
+     */
    
     @IBAction func sendMessageButtonAction(_ sender: Any) {
         if (messageField.text?.isEmpty)!{
@@ -274,6 +297,11 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         }
     }
     
+    /*
+     * sendImageAction()
+     * This function is used in order to encrypt the image if encryption is used and send the encrypted or plain text to server
+     */
+
     
     @IBAction func sendImageAction(_ sender: Any) {
         let imagecontroller = UIImagePickerController()
@@ -281,6 +309,12 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         imagecontroller.sourceType = UIImagePickerControllerSourceType.photoLibrary
         self.present(imagecontroller, animated: true, completion: nil)
     }
+    
+    /*
+     * imagePickerController()
+     * This function is used in order to get the image file from the phone
+     */
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imageView = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
         let image = UIImagePNGRepresentation(imageView) as NSData?
@@ -289,6 +323,11 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         didSelectANewImage = 1
         self.dismiss(animated: true, completion: nil)
     }
+    
+    /*
+     * tableView()
+     * This function is used when a row is selected for image view
+     */
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -362,6 +401,11 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     }
     
     
+    /*
+     * tableView()
+     * This function is used when turnEnryptionOnButton button is pressed this will either turn on or off the encyrption depending on preset value
+     */
+    
     @IBAction func turnEncryptionOnButtonAction(_ sender: Any) {
         if(checkEncryption == 0){
             if(mutualKey == " "){
@@ -379,6 +423,13 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
     
     //Code for mutual key generation if not already generated
     //CODE STARTS HERE
+    
+    /*
+     * mutualKeyGeneration()
+     * This function is called when theturnEncryptionOnButtonAction is invoked, this function will communicate with the socketManager.
+     */
+
+    
     func mutualKeyGeneration() {
         let integrityForMesssageOne = cryptographicModel.cryptoModel.asymmetricRSASign(key: "private", message: challengeByUserA)
         let messageToEncryptInStepOne = challengeByUserA+","+integrityForMesssageOne
@@ -386,6 +437,11 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         print("NOTE THIS TOO",finalOutputOfStepOne)
         socketManager.sockets.establishMutualKeys(message: finalOutputOfStepOne, withNickName: username,idtype: "1")
     }
+    
+    /*
+     * callTheRightMethod()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user B)
+     */
     
     func callTheRightMethod(){
         
@@ -409,6 +465,13 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         
         
     }
+    
+    /*
+     * performStepTwo()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user A)
+     * We perform step 2 and 3 of the protocol in this function
+     */
+    
     func performStepTwo(){
         var mutualKey = " "
         let challengeByUserB = "qwertyui"
@@ -447,6 +510,13 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         
         socketManager.sockets.establishMutualKeys(message: encryptingEverythingThatWeHaveInStepTwo, withNickName: username,idtype: "2")
     }
+    
+    
+    /*
+     * funtionForIDTypeTwo()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user B)
+     * We perform step 4 of the protocol in this function
+     */
     
     func funtionForIDTypeTwo(){
         let currentMutualKeyMessage = keyMessages[1]
@@ -509,6 +579,13 @@ class tableViewController: UIViewController, UITextFieldDelegate, UITableViewDel
         
     }
     
+    /*
+     * finalFunctionForMutualKey()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user A)
+     * We perform step 5 of the protocol in this function
+     */
+    
+
     func finalFunctionForMutualKey(){
         
         //This is where we will save the mutual key for the other user

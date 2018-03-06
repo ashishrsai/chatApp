@@ -1,7 +1,7 @@
 //
 //  prototypeTableViewCell.swift
 //  chatApp
-//
+//  Class used for the designing of a cell in table view
 //  Created by Ashutosh Kumar sai on 18/02/18.
 //  Copyright © 2018 Ashish Kumar sai. All rights reserved.
 //
@@ -15,7 +15,7 @@ class prototypeTableViewCell: UITableViewCell {
     
     
     
-        
+    //We use this method to define the design of a unit cell in table view
     override func awakeFromNib() {
         super.awakeFromNib()
         separatorInset = UIEdgeInsets.zero

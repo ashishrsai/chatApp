@@ -1,7 +1,7 @@
 //
 //  imageViewController.swift
 //  chatApp
-//
+//  This class is used to display image
 //  Created by Ashutosh Kumar sai on 18/02/18.
 //  Copyright © 2018 Ashish Kumar sai. All rights reserved.
 //
@@ -18,6 +18,7 @@ class imageViewController: UIViewController {
     var selectModeOfImageSelection = 0
     var byteToImageValue = String()
     
+    //We use viewDidLoad in order to display image
     override func viewDidLoad() {
         super.viewDidLoad()
         

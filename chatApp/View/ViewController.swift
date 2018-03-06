@@ -48,6 +48,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    /*
+     * prepare()
+     * This function is used to invoke the tableViewController whenever the segue is used
+     *
+     * parameter: segue // delegate function
+     * return: tableViewController // table VC is invoked
+     */
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let destination = segue.destination as? tableViewController {
@@ -58,6 +67,12 @@ class ViewController: UIViewController {
         }
     }
         
+    
+    /*
+     * chatButtonAction()
+     * This function is called when the chat button is clicked, we use this function to communicate to the sockets
+     */
+
     
     @IBAction func chatButtonAction(_ sender: Any) {
         if(userNameTextField.text?.isEmpty)!{
@@ -85,6 +100,12 @@ class ViewController: UIViewController {
     
     
     //Action for Mutual Key Generation
+    /*
+     * mutualKeyGeneration()
+     * This function is called when the mutual key button is pressed, this function will communicate with the socketManager.
+     */
+
+    
     @IBAction func mutualKeyGeneration(_ sender: Any) {
             username = userNameTextField.text!
         
@@ -96,6 +117,11 @@ class ViewController: UIViewController {
             mutualKeyGenButton.isEnabled = false
             socketManager.sockets.establishMutualKeys(message: finalOutputOfStepOne, withNickName: username,idtype: "1")
     }
+    
+    /*
+     * callTheRightMethod()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user B)
+     */
     
     func callTheRightMethod(){
         
@@ -124,6 +150,13 @@ class ViewController: UIViewController {
     
 
 }
+    
+    /*
+     * performStepTwo()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user A)
+     * We perform step 2 and 3 of the protocol in this function
+     */
+    
     func performStepTwo(){
         var mutualKey = " "
         let challengeByUserB = "qwertyui"
@@ -164,6 +197,13 @@ class ViewController: UIViewController {
         
           socketManager.sockets.establishMutualKeys(message: encryptingEverythingThatWeHaveInStepTwo, withNickName: username,idtype: "2")
     }
+    
+    /*
+     * funtionForIDTypeTwo()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user B)
+     * We perform step 4 of the protocol in this function
+     */
+
     
     func funtionForIDTypeTwo(){
         let currentMutualKeyMessage = keyMessages[1]
@@ -224,6 +264,12 @@ class ViewController: UIViewController {
         
         
     }
+    
+    /*
+     * finalFunctionForMutualKey()
+     * This function is called when a mutual key message is recieved from the socket server (This will only be invoked by user A)
+     * We perform step 5 of the protocol in this function
+     */
     
     func finalFunctionForMutualKey(){
         

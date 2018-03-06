@@ -124,6 +124,7 @@ class socketManager: NSObject {
      * parameter: Completionhandler //Used to keep the function running in background waiting for new key messages to arrive
      * return: messageDictionary // A list of key messages recieved is returned
      */
+    
     //Receiving Message for mutual key exchange
     func getMutualKeyMessage(completionHandler: @escaping (_ messageInfo: [String: String]) -> Void) {
         socket.on("newMutualKeyMessage") { (dataArray, socketAck) -> Void in
